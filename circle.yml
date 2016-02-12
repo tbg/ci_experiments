@@ -1,0 +1,15 @@
+machine:
+  services:
+    - docker
+dependencies:
+  override:
+    - go get -u github.com/karalabe/xgo
+    - docker pull karalabe/xgo-develop
+test:
+  override:
+    - /bin/true
+deployment:
+  docker:
+    branch: master
+    commands:
+      - xgo --targets=darwin-10.9/amd64 --go=develop --ldflags=-v github.com/cockroachdb/cockroach
